@@ -81,7 +81,7 @@ describe('functional tests - read', () => {
         // make API call to self to test functionality end-to-end
         const response = await Server.inject({
             method: 'GET',
-            url: '/organizations',
+            url: '/v1/organizations',
         });
 
         expect(response.statusCode).to.equal(200);
@@ -94,7 +94,7 @@ describe('functional tests - read', () => {
     it('should get one organization by code', async () => {
         const response = await Server.inject({
             method: 'GET',
-            url: '/organizations?code=UR',
+            url: '/v1/organizations?code=UR',
         });
 
         expect(response.statusCode).to.equal(200);
@@ -108,7 +108,7 @@ describe('functional tests - read', () => {
     it('should get one organization by name', async () => {
         const response = await Server.inject({
             method: 'GET',
-            url: '/organizations?name=University of Rochester',
+            url: '/v1/organizations?name=University of Rochester',
         });
 
         expect(response.statusCode).to.equal(200);
@@ -123,7 +123,7 @@ describe('functional tests - read', () => {
         async () => {
         const response = await Server.inject({
             method: 'GET',
-            url: '/organizations?name=Aetna&code=aetna',
+            url: '/v1/organizations?name=Aetna&code=aetna',
         });
 
         expect(response.statusCode).to.equal(200);
@@ -137,7 +137,7 @@ describe('functional tests - read', () => {
     it('should get multiple organization by code', async () => {
         const response = await Server.inject({
             method: 'GET',
-            url: '/organizations?code=united',
+            url: '/v1/organizations?code=united',
         });
 
         expect(response.statusCode).to.equal(200);
@@ -151,7 +151,7 @@ describe('functional tests - read', () => {
 
         const response = await Server.inject({
             method: 'GET',
-            url: '/organizations?code=asdf',
+            url: '/v1/organizations?code=asdf',
         });
 
         expect(response.statusCode).to.equal(404);
@@ -161,11 +161,29 @@ describe('functional tests - read', () => {
 
 describe('functional tests - create', () => {
 
+
+    it('should return an error for creating with invalid type', async () => {
+
+        const response = await Server.inject({
+            method: 'POST',
+            url: `/v1/organizations`,
+            payload: JSON.stringify({
+                name: 'Grayzee Healthcare',
+                description: 'Health insurance company based in Springfield',
+                code: 'grayzee',
+                url: 'http://grayzee.com',
+                type: 'band',
+            }),
+        });
+
+        expect(response.statusCode).to.equal(400);
+    });
+
     it('should return success after creating record', async () => {
 
         const response = await Server.inject({
             method: 'POST',
-            url: '/organizations',
+            url: '/v1/organizations',
             payload: JSON.stringify({
                 name: 'United Healthcare',
                 description: 'Health insurance company based in Hartford',
@@ -184,7 +202,7 @@ describe('functional tests - update', () => {
     before(async () => {
         const response = await Server.inject({
             method: 'GET',
-            url: '/organizations?code=oxford'
+            url: '/v1/organizations?code=oxford'
         });
         organizationID = response.result[0]._id;
     });
@@ -193,7 +211,7 @@ describe('functional tests - update', () => {
 
         const response = await Server.inject({
             method: 'PUT',
-            url: `/organizations/${organizationID}`,
+            url: `/v1/organizations/${organizationID}`,
             payload: JSON.stringify({
                 name: 'Woweee Healthcare',
                 description: 'Health insurance company based in Springfield',
@@ -210,7 +228,7 @@ describe('functional tests - update', () => {
 
         const response = await Server.inject({
             method: 'PUT',
-            url: `/organizations/${organizationID}`,
+            url: `/v1/organizations/${organizationID}`,
             payload: JSON.stringify({
                 name: 'Woweee Healthcare',
                 description: 'Health insurance company based in Springfield',
@@ -229,7 +247,7 @@ describe('functional tests - update', () => {
 
         const response = await Server.inject({
             method: 'PUT',
-            url: `/organizations/5bbc3a48c1d3d50996540459`,
+            url: `/v1/organizations/5bbc3a48c1d3d50996540459`,
             payload: JSON.stringify({
                 name: 'United Healthcare',
                 description: 'Health insurance company based in Springfield',
@@ -246,7 +264,7 @@ describe('functional tests - update', () => {
 
         const response = await Server.inject({
             method: 'PUT',
-            url: `/organizations/0`,
+            url: `/v1/organizations/0`,
             payload: JSON.stringify({
                 name: 'United Healthcare',
                 description: 'Health insurance company based in Springfield',
@@ -266,7 +284,7 @@ describe('functional tests - delete', () => {
     before(async () => {
         const response = await Server.inject({
             method: 'GET',
-            url: '/organizations?code=aetna',
+            url: '/v1/organizations?code=aetna',
         });
         organizationID = response.result[0]._id;
     });
@@ -275,7 +293,7 @@ describe('functional tests - delete', () => {
 
         const response = await Server.inject({
             method: 'DELETE',
-            url: `/organizations/${organizationID}`
+            url: `/v1/organizations/${organizationID}`
         });
 
         expect(response.statusCode).to.equal(200);
@@ -287,7 +305,7 @@ describe('functional tests - delete', () => {
 
         const response = await Server.inject({
             method: 'DELETE',
-            url: '/organizations/5bbc3a48c1d3d50996540459',
+            url: '/v1/organizations/5bbc3a48c1d3d50996540459',
         });
 
         expect(response.statusCode).to.equal(404);
@@ -297,7 +315,7 @@ describe('functional tests - delete', () => {
 
         const response = await Server.inject({
             method: 'DELETE',
-            url: '/organizations/0',
+            url: '/v1/organizations/0',
         });
 
         expect(response.statusCode).to.equal(500);

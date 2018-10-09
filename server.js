@@ -14,34 +14,45 @@ const server = new Hapi.Server({ port: process.env.PORT || 8080 });
 const registerRoutes = () => {
     server.route({
         method: 'GET',
-        path: '/organizations',
+        path: '/v1/organizations',
         handler: OrganizationController.list,
     });
     server.route({
         method: 'POST',
-        path: '/organizations',
+        path: '/v1/organizations',
         handler: OrganizationController.create,
+        options: {
+            validate: {
+                payload: Joi.object().keys({
+                    name: Joi.string().required(),
+                    description: Joi.string().optional(),
+                    code: Joi.string().required(),
+                    url: Joi.string().optional(),
+                    type: Joi.string().valid('employer', 'insurance', 'health system'),
+                }),
+            },
+        },
     });
     server.route({
         method: 'DELETE',
-        path: '/organizations/{id}',
+        path: '/v1/organizations/{id}',
         handler: OrganizationController.remove,
     });
     server.route({
         method: 'PUT',
-        path: '/organizations/{id}',
+        path: '/v1/organizations/{id}',
         handler: OrganizationController.update,
         options: {
             validate: {
                 payload: Joi.object().keys({
-                    name: Joi.string().optional(),
+                    name: Joi.string().required(),
                     description: Joi.string().optional(),
-                    code: Joi.string().optional(),
+                    code: Joi.string().required(),
                     url: Joi.string().optional(),
                     type: Joi.string().valid('employer', 'insurance', 'health system'),
                 }),
-            }
-        }
+            },
+        },
     });
 }
 (async function () {
