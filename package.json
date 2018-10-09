@@ -7,6 +7,9 @@
     "type": "git",
     "url": "git+https://github.com/ben833/organitza.git"
   },
+  "engines": {
+    "node": "8.11.3"
+  },
   "license": "ISC",
   "scripts": {
     "start": "node src/server.js",

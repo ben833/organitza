@@ -55,7 +55,7 @@ const registerRoutes = () => {
         },
     });
 }
-(async function () {
+const startServers = async () => {
     try {
         registerRoutes();
         await server.start();
@@ -73,6 +73,7 @@ const registerRoutes = () => {
     catch (error) {
         throw error;
     }
-}());
+}
+startServers();
 
 module.exports = server;
