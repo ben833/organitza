@@ -71,11 +71,11 @@ exports.update = (request, h) => {
             organization.url = request.payload.url;
             organization.type = request.payload.type;
             return organization.save(organization).then(() => {
-                return h.response({message: 'Updated'})
-                    .code(204);
+                return h.response({ message: 'success' })
+                    .code(200);
             }).catch((error) => {
                 console.error(error);
-                return h.response({message: 'There was an error. Please check the logs.'})
+                return h.response({message: 'There was an error. Please check the logs.' })
                     .code(500);
             });
         }
@@ -97,8 +97,8 @@ exports.remove = (request, h) => {
     return Organization.findById(request.params.id).exec().then((organization) => {
         if (organization) {
             return organization.remove().then(() => {
-                return h.response({message: 'Removed'})
-                    .code(204);
+                return h.response({message: 'success'})
+                    .code(200);
             }).catch((error) => {
                 console.error(error.message);
                 return h.response({message: 'There was an error. Please check the logs.'})

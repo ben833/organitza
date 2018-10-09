@@ -189,6 +189,23 @@ describe('functional tests - update', () => {
         organizationID = response.result[0]._id;
     });
 
+    it('should return an error for updating with ID in system with invalid type', async () => {
+
+        const response = await Server.inject({
+            method: 'PUT',
+            url: `/organizations/${organizationID}`,
+            payload: JSON.stringify({
+                name: 'Woweee Healthcare',
+                description: 'Health insurance company based in Springfield',
+                code: 'wowee',
+                url: 'http://woweee.com',
+                type: 'x',
+            }),
+        });
+
+        expect(response.statusCode).to.equal(400);
+    });
+
     it('should return success for updating with ID in system', async () => {
 
         const response = await Server.inject({
@@ -203,7 +220,9 @@ describe('functional tests - update', () => {
             }),
         });
 
-        expect(response.statusCode).to.equal(204);
+        expect(response.statusCode).to.equal(200);
+        expect(response.result.message).to.exist();
+        expect(response.result.message).to.contain('success');
     });
 
     it('should return error for updating with ID not in system', async () => {
@@ -259,7 +278,9 @@ describe('functional tests - delete', () => {
             url: `/organizations/${organizationID}`
         });
 
-        expect(response.statusCode).to.equal(204);
+        expect(response.statusCode).to.equal(200);
+        expect(response.result.message).to.exist();
+        expect(response.result.message).to.contain('success');
     });
 
     it('should return error for deleting with ID not in system', async () => {

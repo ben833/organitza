@@ -2,6 +2,7 @@
 
 // Node modules
 const Hapi = require('hapi');
+const Joi = require('joi');
 const mongoose = require('mongoose');
 
 // Data
@@ -14,22 +15,33 @@ const registerRoutes = () => {
     server.route({
         method: 'GET',
         path: '/organizations',
-        handler: OrganizationController.list
+        handler: OrganizationController.list,
     });
     server.route({
         method: 'POST',
         path: '/organizations',
-        handler: OrganizationController.create
+        handler: OrganizationController.create,
     });
     server.route({
         method: 'DELETE',
         path: '/organizations/{id}',
-        handler: OrganizationController.remove
+        handler: OrganizationController.remove,
     });
     server.route({
         method: 'PUT',
         path: '/organizations/{id}',
-        handler: OrganizationController.update
+        handler: OrganizationController.update,
+        options: {
+            validate: {
+                payload: Joi.object().keys({
+                    name: Joi.string().optional(),
+                    description: Joi.string().optional(),
+                    code: Joi.string().optional(),
+                    url: Joi.string().optional(),
+                    type: Joi.string().valid('employer', 'insurance', 'health system'),
+                }),
+            }
+        }
     });
 }
 (async function () {
