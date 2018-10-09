@@ -8,6 +8,7 @@ const organizationModel = new Schema({
     code: { type: String, index: true },
     description: 'string',
     url: 'string',
+    type: 'string',
 });
 
 module.exports = mongoose.model('Organization', organizationModel, 'organizations');
