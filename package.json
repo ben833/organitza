@@ -13,12 +13,13 @@
   "license": "ISC",
   "scripts": {
     "start": "node src/server.js",
-    "test": "mocha tests/test tests/organization"
+    "test": "NODE_ENV=test node node_modules/lab/bin/lab -m 99999 tests/hapitests.js"
   },
   "author": "Ben Margolis",
   "dependencies": {
     "code": "^5.2.0",
     "hapi": "17.6.0",
+    "hapi-auth-jwt2": "^8.1.0",
     "hapi-mongoose": "^2.0.0",
     "joi": "^13.7.0",
     "lab": "^16.1.0",
