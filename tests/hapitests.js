@@ -33,7 +33,7 @@ const fillWithData = () => {
                 description: 'U of R Health System',
                 code: 'UR',
                 type: 'health system',
-                url: 'http://waterboy.com',
+                url: 'http://rochester.edu',
             }).save(),
             new Organization({
                 name: 'Aetna',

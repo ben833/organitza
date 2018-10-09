@@ -12,7 +12,7 @@ exports.create = (request, h) => {
         type: request.payload.type,
     };
     return Organization.create(organizationData).then(organization =>
-         h.response({ message: 'Organization created successfully', organization: organization })
+         h.response({ message: 'success', organization: organization })
              .code(201)
     ).catch((error) => {
         return { err: error };
@@ -97,11 +97,11 @@ exports.remove = (request, h) => {
     return Organization.findById(request.params.id).exec().then((organization) => {
         if (organization) {
             return organization.remove().then(() => {
-                return h.response({message: 'success'})
+                return h.response({ message: 'success' })
                     .code(200);
             }).catch((error) => {
                 console.error(error.message);
-                return h.response({message: 'There was an error. Please check the logs.'})
+                return h.response({ message: 'There was an error. Please check the logs.' })
                     .code(500);
             });
         }
