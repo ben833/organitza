@@ -1,6 +1,10 @@
 # organitza
 REST API that lets you track the organizations in your world
 
+## Live Demo
+
+Send HTTP requests to `http://mysterious-chamber-36083.herokuapp.com` using the information below.
+
 # API Documentation
 ## List organizations
 `GET /v1/organizations`
@@ -67,8 +71,7 @@ Response: HTTP Status Code `200`
         "description": "U of R Health System",
         "url": "http://rochester.edu",
         "code": "UR",
-        "type": "health system",
-        "__v": 0
+        "type": "health system"
     }
 }
 ```
@@ -92,8 +95,6 @@ Response: HTTP Status Code `200`
 ## Delete an organization
 `DELETE /v1/organizations/${organizationID}`
 
-
-
 Response: HTTP Status Code `200`
 
 `{ message: 'success' }`
@@ -102,9 +103,15 @@ Response: HTTP Status Code `200`
 
 Copy the `.env.example` file to `.env` and fill in with the appropriate values.
 
+To run:
+
 `node server.js`
 
 The above command will output the local URL. You can now use HTTP requests on endpoints on that URL.
 
-This repo is also a docker container meant to be deployed to a Heroku docker registry.
+To test:
+
+`node node_modules/lab/bin/lab -m 99999 tests/tests.js`
+
+This repo is also a docker environment meant to be deployed to a Heroku container registry.
 See https://devcenter.heroku.com/articles/container-registry-and-runtime

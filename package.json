@@ -13,7 +13,7 @@
   "license": "ISC",
   "scripts": {
     "start": "node src/server.js",
-    "test": "NODE_ENV=test node node_modules/lab/bin/lab -m 99999 tests/hapitests.js"
+    "test": "node node_modules/lab/bin/lab -m 99999 tests/tests.js"
   },
   "author": "Ben Margolis",
   "dependencies": {
