@@ -80,6 +80,7 @@ describe('functional tests - read', () => {
     it('should get all organizations', async () => {
         // make API call to self to test functionality end-to-end
         const response = await Server.inject({
+            headers: { Authorization: process.env.JWT_EXAMPLE_TOKEN },
             method: 'GET',
             url: '/v1/organizations',
         });
@@ -150,6 +151,7 @@ describe('functional tests - read', () => {
     it('should return error for getting with invalid code or name', async () => {
 
         const response = await Server.inject({
+            headers: { Authorization: process.env.JWT_EXAMPLE_TOKEN },
             method: 'GET',
             url: '/v1/organizations?code=asdf',
         });

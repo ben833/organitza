@@ -12,7 +12,14 @@ exports.create = (request, h) => {
         type: request.payload.type,
     };
     return Organization.create(organizationData).then(organization =>
-         h.response({ message: 'success', organization: organization })
+         h.response({ message: 'success', organization: {
+             _id: organization._id,
+             name: organization.name,
+             description: organization.description,
+             url: organization.url,
+             code: organization.code,
+             type: organization.type,
+         } })
              .code(201)
     ).catch((error) => {
         return { err: error };

@@ -1,6 +1,6 @@
 module.exports = (server) => {
     const Joi = require('joi');
-    const OrganizationController =  require('./organization');
+    const OrganizationController = require('./organization');
     server.route({
         method: 'GET',
         path: '/v1/organizations',

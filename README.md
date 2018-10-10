@@ -1,11 +1,20 @@
 # organitza
-REST API that lets you track the organizations in your world
+Track the organizations in your world.
+
+This is an API that uses Hapi framework, JWT authentication and Lab tests.
 
 ## Live Demo
 
 Send HTTP requests to `http://mysterious-chamber-36083.herokuapp.com` using the information below.
 
 # API Documentation
+
+## Authorization
+
+In order to request or send any data, you to send a JWT token as a header. Please contact Ben Margolis for a token.
+
+Authorization: `your_token_here`
+
 ## List organizations
 `GET /v1/organizations`
 
@@ -101,7 +110,11 @@ Response: HTTP Status Code `200`
 
 # Local Development
 
-Copy the `.env.example` file to `.env` and fill in with the appropriate values.
+Copy the `.env.example` file to `.env` and fill in with the appropriate values for Mongo DB URL and JWT Secret.
+
+To turn off JWT authentication, make JWT_SECRET an empty string.
+
+You will need to set those same environment variables at your live servers.
 
 To run:
 
