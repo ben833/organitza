@@ -10,10 +10,10 @@
   "engines": {
     "node": "8.11.3"
   },
-  "license": "ISC",`
+  "license": "ISC",
   "scripts": {
     "start": "node src/server.js",
-    "test": "node node_modules/lab/bin/lab -m 99999 tests/tests.js"
+    "test": "source .env && node node_modules/lab/bin/lab -m 99999 tests/tests.js"
   },
   "author": "Ben Margolis",
   "dependencies": {
