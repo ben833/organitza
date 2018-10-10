@@ -1,7 +1,8 @@
 # organitza
 REST API that lets you track the organizations in your world
 
-# List organizations
+# API Documentation
+## List organizations
 `GET /v1/organizations`
 
 Response: HTTP Status Code `200`
@@ -39,7 +40,7 @@ Response: HTTP Status Code `200`
 
 `GET /v1/organizations?code=UR&name=University of Rochester`
 
-# Create a new organization
+## Create a new organization
 
 `type` must be one of the following values: 'employer', 'insurance', 'health system'
 
@@ -72,7 +73,7 @@ Response: HTTP Status Code `200`
 }
 ```
 
-# Update an organization
+## Update an organization
 `PUT /v1/organizations/${organizationID}`
 ```
 {
@@ -88,7 +89,7 @@ Response: HTTP Status Code `200`
 
 `{ message: 'success' }`
 
-# Delete an organization
+## Delete an organization
 `DELETE /v1/organizations/${organizationID}`
 
 
@@ -96,3 +97,14 @@ Response: HTTP Status Code `200`
 Response: HTTP Status Code `200`
 
 `{ message: 'success' }`
+
+# Local Development
+
+Copy the `.env.example` file to `.env` and fill in with the appropriate values.
+
+`node server.js`
+
+The above command will output the local URL. You can now use HTTP requests on endpoints on that URL.
+
+This repo is also a docker container meant to be deployed to a Heroku docker registry.
+See https://devcenter.heroku.com/articles/container-registry-and-runtime

@@ -5,9 +5,7 @@ const Hapi = require('hapi');
 const mongoose = require('mongoose');
 
 const Routes = require('./controllers/routes.js');
-// @todo: put this in an environment variable, so it's not in repo.
-// @todo: such as process.env.MONGO_DB_URL.
-const MongoDBUrl = 'mongodb://organitza:F34g8*Lob29!hey@ds125453.mlab.com:25453/organitza';
+const MongoDBUrl = process.env.MONGO_DB_URL;
 
 const server = new Hapi.Server({ port: process.env.PORT || 8080 });
 
