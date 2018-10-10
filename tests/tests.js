@@ -94,6 +94,7 @@ describe('functional tests - read', () => {
 
     it('should get one organization by code', async () => {
         const response = await Server.inject({
+            headers: { Authorization: process.env.JWT_EXAMPLE_TOKEN },
             method: 'GET',
             url: '/v1/organizations?code=UR',
         });
@@ -108,6 +109,7 @@ describe('functional tests - read', () => {
 
     it('should get one organization by name', async () => {
         const response = await Server.inject({
+            headers: { Authorization: process.env.JWT_EXAMPLE_TOKEN },
             method: 'GET',
             url: '/v1/organizations?name=University of Rochester',
         });
@@ -123,6 +125,7 @@ describe('functional tests - read', () => {
     it('should get one organization by name and code; name is used when both are passed',
         async () => {
         const response = await Server.inject({
+            headers: { Authorization: process.env.JWT_EXAMPLE_TOKEN },
             method: 'GET',
             url: '/v1/organizations?name=Aetna&code=aetna',
         });
@@ -137,6 +140,7 @@ describe('functional tests - read', () => {
 
     it('should get multiple organization by code', async () => {
         const response = await Server.inject({
+            headers: { Authorization: process.env.JWT_EXAMPLE_TOKEN },
             method: 'GET',
             url: '/v1/organizations?code=united',
         });
@@ -167,6 +171,7 @@ describe('functional tests - create', () => {
     it('should return an error for creating with invalid type', async () => {
 
         const response = await Server.inject({
+            headers: { Authorization: process.env.JWT_EXAMPLE_TOKEN },
             method: 'POST',
             url: `/v1/organizations`,
             payload: JSON.stringify({
@@ -184,6 +189,7 @@ describe('functional tests - create', () => {
     it('should return success after creating record', async () => {
 
         const response = await Server.inject({
+            headers: { Authorization: process.env.JWT_EXAMPLE_TOKEN },
             method: 'POST',
             url: '/v1/organizations',
             payload: JSON.stringify({
@@ -203,6 +209,7 @@ describe('functional tests - update', () => {
     var organizationID = null;
     before(async () => {
         const response = await Server.inject({
+            headers: { Authorization: process.env.JWT_EXAMPLE_TOKEN },
             method: 'GET',
             url: '/v1/organizations?code=oxford'
         });
@@ -212,6 +219,7 @@ describe('functional tests - update', () => {
     it('should return an error for updating with ID in system with invalid type', async () => {
 
         const response = await Server.inject({
+            headers: { Authorization: process.env.JWT_EXAMPLE_TOKEN },
             method: 'PUT',
             url: `/v1/organizations/${organizationID}`,
             payload: JSON.stringify({
@@ -229,6 +237,7 @@ describe('functional tests - update', () => {
     it('should return success for updating with ID in system', async () => {
 
         const response = await Server.inject({
+            headers: { Authorization: process.env.JWT_EXAMPLE_TOKEN },
             method: 'PUT',
             url: `/v1/organizations/${organizationID}`,
             payload: JSON.stringify({
@@ -248,6 +257,7 @@ describe('functional tests - update', () => {
     it('should return error for updating with ID not in system', async () => {
 
         const response = await Server.inject({
+            headers: { Authorization: process.env.JWT_EXAMPLE_TOKEN },
             method: 'PUT',
             url: `/v1/organizations/5bbc3a48c1d3d50996540459`,
             payload: JSON.stringify({
@@ -265,6 +275,7 @@ describe('functional tests - update', () => {
     it('should return error for invalid id format (validation test)', async () => {
 
         const response = await Server.inject({
+            headers: { Authorization: process.env.JWT_EXAMPLE_TOKEN },
             method: 'PUT',
             url: `/v1/organizations/0`,
             payload: JSON.stringify({
@@ -285,6 +296,7 @@ describe('functional tests - delete', () => {
     var organizationID = null;
     before(async () => {
         const response = await Server.inject({
+            headers: { Authorization: process.env.JWT_EXAMPLE_TOKEN },
             method: 'GET',
             url: '/v1/organizations?code=aetna',
         });
@@ -294,6 +306,7 @@ describe('functional tests - delete', () => {
     it('should return success for deleting with ID in system', async () => {
 
         const response = await Server.inject({
+            headers: { Authorization: process.env.JWT_EXAMPLE_TOKEN },
             method: 'DELETE',
             url: `/v1/organizations/${organizationID}`
         });
@@ -306,6 +319,7 @@ describe('functional tests - delete', () => {
     it('should return error for deleting with ID not in system', async () => {
 
         const response = await Server.inject({
+            headers: { Authorization: process.env.JWT_EXAMPLE_TOKEN },
             method: 'DELETE',
             url: '/v1/organizations/5bbc3a48c1d3d50996540459',
         });
@@ -316,6 +330,7 @@ describe('functional tests - delete', () => {
     it('should return error for invalid id format (validation test)', async () => {
 
         const response = await Server.inject({
+            headers: { Authorization: process.env.JWT_EXAMPLE_TOKEN },
             method: 'DELETE',
             url: '/v1/organizations/0',
         });
@@ -330,26 +345,3 @@ describe('functional tests - delete', () => {
     });
 });
 
-describe('functional tests - get documentation', () => {
-
-/*
-    it('should return documentation html', async () => {
-
-        // make API call to self to test functionality end-to-end
-        const response = await Server.inject({
-            method: 'GET',
-            url: '/',
-        });
-
-        expect(response.statusCode).to.equal(200);
-        expect(response.result).to.be.a.string();
-    });
-    after(async () => {
-        Server.stop({timeout: 10000}).then(function (err) {
-            console.log('hapi server stopped')
-            process.exit((err) ? 1 : 0)
-        })
-    });
-
-*/
-});

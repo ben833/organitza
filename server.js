@@ -13,19 +13,13 @@ const server = new Hapi.Server({ port: process.env.PORT || 8080 });
 
 const secret = process.env.JWT_SECRET;
 
-if (secret && process.env.NODE_ENV && process.env.NODE_ENV === 'dev') {
-    // A dummy person to get the JWT token.
-    const people = {
-        1: {
-            id: 1,
-            name: 'Anthony Valid User',
-        }
-    };
-
-    // one can use the token as the 'authorization' header in requests
-    const token = JWT.sign(people[1], secret); // synchronous
-    console.log(token);
-}
+// A dummy person to get the JWT token.
+const people = {
+    1: {
+        id: 1,
+        name: 'Tony Valid User',
+    }
+};
 
 const validate = async function (decoded, request, h) {
     // check to see if the person is valid.
@@ -36,6 +30,12 @@ const validate = async function (decoded, request, h) {
         return { isValid: true };
     }
 };
+
+if (secret && process.env.NODE_ENV && process.env.NODE_ENV === 'dev') {
+    // one can use the token as the 'authorization' header in requests
+    const token = JWT.sign(people[1], secret); // synchronous
+    console.log(token);
+}
 
 const startServers = async () => {
     try {
