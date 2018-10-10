@@ -58,7 +58,7 @@ exports.list = (request, h) => {
         });
     }
     else {
-        return Organization.find({}, 'name').exec().then(organizations => {
+        return Organization.find({}, 'name description type').exec().then(organizations => {
             return h.response( organizations );
         }
         ).catch((error) => {
