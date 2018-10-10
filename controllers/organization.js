@@ -34,7 +34,7 @@ exports.list = (request, h) => {
     // If we have query parameters
     if (Object.keys(params).length) {
         let query = {};
-        let selectFields = ['name', 'type'];
+        let selectFields = ['name', 'type', 'description'];
         if (params.code) {
             query.code = params.code;
             selectFields = [...selectFields, 'code', 'url'];
