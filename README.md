@@ -124,7 +124,9 @@ The above command will output the local URL. You can now use HTTP requests on en
 
 To test:
 
-`node node_modules/lab/bin/lab -m 99999 tests/tests.js`
+`source .env && node node_modules/lab/bin/lab -m 99999 tests/tests.js`
+
+The `source .env` makes sure the testing environment has all the environment variables it needs.
 
 This repo is also a docker environment meant to be deployed to a Heroku container registry.
 See https://devcenter.heroku.com/articles/container-registry-and-runtime
