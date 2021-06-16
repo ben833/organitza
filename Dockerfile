@@ -1,4 +1,4 @@
-FROM mhart/alpine-node
+FROM mhart/alpine-node:15.13.0
 RUN apk update && apk upgrade
 RUN apk add nodejs
 RUN rm -rf /var/cache/apk/*
